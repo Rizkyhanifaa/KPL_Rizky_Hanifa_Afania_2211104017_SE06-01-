@@ -9,6 +9,9 @@ class SayaTubeVideo
 
     public SayaTubeVideo(string title)
     {
+        if (title == null || title.Length > 200)
+            throw new ArgumentException("Judul video tidak boleh null dan maksimal 200 karakter.");
+
         Random rand = new Random();
         this.id = rand.Next(10000, 99999); // ID random 5 digit
         this.title = title;
@@ -17,7 +20,14 @@ class SayaTubeVideo
 
     public void IncreasePlayCount(int count)
     {
-        playCount += count;
+        if (count > 25000000 || count < 0)
+            throw new ArgumentException("Play count maksimal 25.000.000 per panggilan " +
+                "dan tidak boleh bilangan negatif.");
+
+        checked
+        {
+            playCount += count;
+        }
     }
 
     public void PrintVideoDetails()
@@ -46,6 +56,9 @@ class SayaTubeUser
 
     public SayaTubeUser(string username)
     {
+        if (username == null || username.Length > 100)
+            throw new ArgumentException("Username tidak boleh null dan maksimal 100 karakter.");
+
         Random rand = new Random();
         this.id = rand.Next(10000, 99999); // ID random 5 digit
         this.Username = username;
@@ -54,6 +67,9 @@ class SayaTubeUser
 
     public void AddVideo(SayaTubeVideo video)
     {
+        if (video == null)
+            throw new ArgumentException("Video yang ditambahkan tidak boleh null.");
+
         uploadedVideos.Add(video);
     }
 
@@ -70,10 +86,11 @@ class SayaTubeUser
     public void PrintAllVideoPlaycount()
     {
         Console.WriteLine($"User: {Username}");
-        for (int i = 0; i < uploadedVideos.Count; i++)
+        for (int i = 0; i < uploadedVideos.Count && i < 8; i++)
         {
             Console.WriteLine($"Video {i + 1} judul: {uploadedVideos[i].GetTitle()}");
         }
+        Console.WriteLine($"\nTotal play count: {GetTotalVideoPlayCount()}");
     }
 }
 
@@ -81,28 +98,46 @@ class Program
 {
     static void Main()
     {
-        SayaTubeUser user = new SayaTubeUser("Hanifa");
-
-        List<string> videoTitles = new List<string>
+        try
         {
-            "Review Film Interstellar oleh Hanifa",
-            "Review Film Inception oleh Hanifa",
-            "Review Film The Dark Knight oleh Hanifa",
-            "Review Film Parasite oleh Hanifa",
-            "Review Film The Godfather oleh Hanifa",
-            "Review Film Whiplash oleh Hanifa",
-            "Review Film Fight Club oleh Hanifa",
-            "Review Film Joker oleh Hanifa",
-            "Review Film The Martian oleh Hanifa",
-            "Review Film Gravity oleh Hanifa"
-        };
+            SayaTubeUser user = new SayaTubeUser("Hanifa");
 
-        foreach (var title in videoTitles)
-        {
-            SayaTubeVideo video = new SayaTubeVideo(title);
-            user.AddVideo(video);
+            List<string> videoTitles = new List<string>
+            {
+                "Review Film Interstellar oleh Hanifa",
+                "Review Film Inception oleh Hanifa",
+                "Review Film The Dark Knight oleh Hanifa",
+                "Review Film Parasite oleh Hanifa",
+                "Review Film The Godfather oleh Hanifa",
+                "Review Film Whiplash oleh Hanifa",
+                "Review Film Fight Club oleh Hanifa",
+                "Review Film Joker oleh Hanifa",
+                "Review Film The Martian oleh Hanifa",
+                "Review Film Gravity oleh Hanifa"
+            };
+
+            foreach (var title in videoTitles)
+            {
+                SayaTubeVideo video = new SayaTubeVideo(title);
+                user.AddVideo(video);
+            }
+
+            user.PrintAllVideoPlaycount();
+
+            // Simulasi error play count
+            try
+            {
+                SayaTubeVideo testVideo = new SayaTubeVideo("Test Video Error");
+                testVideo.IncreasePlayCount(30000000); // Melebihi batas
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error: {ex.Message}");
+            }
         }
-
-        user.PrintAllVideoPlaycount();
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error: {ex.Message}");
+        }
     }
 }
