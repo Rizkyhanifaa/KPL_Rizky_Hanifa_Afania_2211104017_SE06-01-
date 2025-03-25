@@ -1,0 +1,21 @@
+{
+  "firstName": "Rizky",
+  "lastName": "Hanifa Afania",
+  "gender": "female",
+  "age": 22,
+  "address": {
+    "streetAddress": "Jl. Samparangin",
+    "city": "Purwokerto",
+    "state": "Central Java"
+  },
+  "courses": [
+    {
+      "code": "CRI2C4",
+      "name": "Konstruksi Perangkat Lunak"
+    },
+    {
+      "code": "CRI2XX",
+      "name": "Kecerdasan Buatan"
+    }
+  ]
+}
