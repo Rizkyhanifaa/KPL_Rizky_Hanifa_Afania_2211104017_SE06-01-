@@ -1,0 +1,41 @@
+{
+  "members": [
+    {
+      "firstName": "Andera",
+      "lastName": "Singgih Pratama",
+      "gender": "Male",
+      "age": 21,
+      "nim": "2211104007"
+    },
+    {
+      "firstName": "Althafia Defiyandrea",
+      "lastName": "Laskanadya Wibowo",
+      "gender": "Female",
+      "age": 21,
+      "nim": "2211104011"
+    },
+    {
+      "firstName": "Muhammad Idham",
+      "lastName": "Cholid",
+      "gender": "Male",
+      "age": 21,
+      "nim": "2211104016"
+    },
+    {
+      "firstName": "Rizky Hanifa",
+      "lastName": "Afania",
+      "gender": "Female",
+      "age": 22,
+      "nim": "2211104017"
+    },
+    {
+      "firstName": "Fauzan Wahyu",
+      "lastName": "Mubarak",
+      "gender": "Male",
+      "age": 21,
+      "nim": "2211104027"
+    }
+  ]
+}
+
+
